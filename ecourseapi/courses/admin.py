@@ -1,3 +1,4 @@
+import cloudinary
 from django.contrib import admin
 from courses.models import Course, Category
 
@@ -22,7 +23,11 @@ class Coursedmin(admin.ModelAdmin):
     readonly_fields = ['my_image']
     form = CourseForm
     def my_image(self, course):
-        return mark_safe(f"<img width='300' src='/static/{course.image.name}'")
+        if course.image:
+            #debug import pdb   pdb.set_trace()
+            if type(course.image) is cloudinary.CloudinaryResource:
+                return mark_safe(f"<img width='300' src='{course.image.url}'>")
+        return mark_safe(f"<img width='300' src='/static/{course.image.name}'>")
 
     #gắn css
     class Media:

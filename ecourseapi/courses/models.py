@@ -2,7 +2,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 # Usser chứng thưc
 from django.contrib.auth.models import AbstractUser
-
+from cloudinary.models import CloudinaryField
 
 class User(AbstractUser):
     pass
@@ -28,7 +28,7 @@ class Category(models.Model):
 class Course(BaseModel):
     name = models.CharField(max_length=100)
     description = RichTextField()
-    image = models.ImageField(upload_to='courses/%Y/%m/')
+    image = CloudinaryField()
 
     # khóa ngoại
     # PROTECT:lafaf danh mục đến khóa học thì k cho xóa

@@ -56,7 +56,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ecourseapi.urls'
+import cloudinary
 
+cloudinary.config(
+    cloud_name="dp0daqkme",
+    api_key="798394568922116",
+    api_secret="AeLuIp-ncowCUuL-Yl2euuQoaoI"
+)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
