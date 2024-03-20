@@ -1,5 +1,5 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField
 # Usser chứng thưc
 from django.contrib.auth.models import AbstractUser
 
@@ -27,7 +27,7 @@ class Category(models.Model):
 
 class Course(BaseModel):
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = RichTextField()
     image = models.ImageField(upload_to='courses/%Y/%m/')
 
     # khóa ngoại
