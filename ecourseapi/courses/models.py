@@ -6,7 +6,7 @@ from cloudinary.models import CloudinaryField
 
 
 class User(AbstractUser):
-    pass
+    avatar = CloudinaryField(null=True)
 
 
 # Create your models here.
@@ -17,6 +17,7 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ['-id']
 
 
 class Category(models.Model):
