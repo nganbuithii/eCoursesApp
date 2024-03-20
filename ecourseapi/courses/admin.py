@@ -1,7 +1,29 @@
 from django.contrib import admin
 from courses.models import Course, Category
+
+# đánh dấu mã an toàn
+from django.utils.html import mark_safe
+
+
 # Register your models here.
+
+
+# Custom trang quản trị
+class Coursedmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'active', 'created_date', 'updated_date']
+    search_fields = ['name']
+    list_filter = ['id', 'name']
+    readonly_fields = ['my_image']
+
+    def my_image(self, course):
+        return mark_safe(f"<img width='300' src='/static/{course.image.name}'")
+
+    #gắn css
+    class Media:
+        css={
+            'all':['/static/css/style.css']
+        }
 
 # trang quản trị
 admin.site.register(Category)
-admin.site.register(Course)
+admin.site.register(Course, Coursedmin)
