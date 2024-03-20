@@ -6,7 +6,13 @@ from django.utils.html import mark_safe
 
 
 # Register your models here.
-
+from django import forms
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+class CourseForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorUploadingWidget)
+    class Meta:
+        model = Course
+        fields = '__all__'
 
 # Custom trang quản trị
 class Coursedmin(admin.ModelAdmin):
@@ -14,7 +20,7 @@ class Coursedmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = ['id', 'name']
     readonly_fields = ['my_image']
-
+    form = CourseForm
     def my_image(self, course):
         return mark_safe(f"<img width='300' src='/static/{course.image.name}'")
 
