@@ -1,5 +1,9 @@
 import cloudinary
 from django.contrib import admin
+from django.http import request
+from django.template.response import TemplateResponse
+from django.urls import path
+
 from courses.models import Course, Category, Lesson, Tag
 
 # đánh dấu mã an toàn
@@ -10,7 +14,7 @@ from django import forms
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
-#nhúng Tag vào các model khác
+# nhúng Tag vào các model khác
 class TagInlineAdmin(admin.TabularInline):
     model = Course.tags.through
 
@@ -46,8 +50,23 @@ class Coursedmin(admin.ModelAdmin):
         }
 
 
+# Trang admin SITE
+class CourseAppAdminSite(admin.AdminSite):
+    site_header = 'HỆ THỐNG KHÓA HỌC TRỰC TUYẾN'
+
+    def get_urls(self):
+        return [path('course-stats/', self.stats_view)] + super().get_urls()
+
+    def stats_view(self, request):  # Thêm tham số 'request' vào đây
+        return TemplateResponse(request, 'admin/stats.html')
+
+
+
+#định nghĩa trang admin
+admin_site = CourseAppAdminSite(name='myadmin')
+
 # trang quản trị
-admin.site.register(Category)
-admin.site.register(Lesson)
-admin.site.register(Tag)
-admin.site.register(Course, Coursedmin)
+admin_site.register(Category)
+admin_site.register(Lesson)
+admin_site.register(Tag)
+admin_site.register(Course, Coursedmin)

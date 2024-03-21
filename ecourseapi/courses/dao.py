@@ -22,4 +22,4 @@ def get_courses(**kwargs):
 
 # đếm khóa học theo danh mục
 def count_courses_by_cate():
-    return Category.objects.annotate(counter=Count('course__id')).values('id','name','counter').all()
+    return Category.objects.annotate(counter=Count('course__id')).values('id', 'name', 'counter').all()
