@@ -32,7 +32,7 @@ class Course(BaseModel):
     name = models.CharField(max_length=100)
     description = RichTextField()
     image = CloudinaryField()
-
+    tags = models.ManyToManyField('Tag')
     # khóa ngoại
     # PROTECT:lafaf danh mục đến khóa học thì k cho xóa
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
@@ -67,10 +67,12 @@ class Interaction(BaseModel):
     class Meta:
         abstract = True
 
+
 class Like(Interaction):
-    #like theo kiểu facebook
+    # like theo kiểu facebook
     class Meta:
-        unique_together = ("lesson","user")
+        unique_together = ("lesson", "user")
+
 
 class Comment(Interaction):
     content = models.CharField(max_length=255)

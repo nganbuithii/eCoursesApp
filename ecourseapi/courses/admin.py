@@ -1,6 +1,6 @@
 import cloudinary
 from django.contrib import admin
-from courses.models import Course, Category
+from courses.models import Course, Category, Lesson, Tag
 
 # đánh dấu mã an toàn
 from django.utils.html import mark_safe
@@ -8,6 +8,11 @@ from django.utils.html import mark_safe
 # Register your models here.
 from django import forms
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
+
+
+#nhúng Tag vào các model khác
+class TagInlineAdmin(admin.TabularInline):
+    model = Course.tags.through
 
 
 class CourseForm(forms.ModelForm):
@@ -25,6 +30,7 @@ class Coursedmin(admin.ModelAdmin):
     list_filter = ['id', 'name']
     readonly_fields = ['my_image']
     form = CourseForm
+    inlines = [TagInlineAdmin]
 
     def my_image(self, course):
         if course.image:
@@ -42,4 +48,6 @@ class Coursedmin(admin.ModelAdmin):
 
 # trang quản trị
 admin.site.register(Category)
+admin.site.register(Lesson)
+admin.site.register(Tag)
 admin.site.register(Course, Coursedmin)
