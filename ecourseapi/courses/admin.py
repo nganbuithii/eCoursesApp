@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.http import request
 from django.template.response import TemplateResponse
 from django.urls import path
-
+from courses import dao
 from courses.models import Course, Category, Lesson, Tag
 
 # đánh dấu mã an toàn
@@ -58,7 +58,9 @@ class CourseAppAdminSite(admin.AdminSite):
         return [path('course-stats/', self.stats_view)] + super().get_urls()
 
     def stats_view(self, request):  # Thêm tham số 'request' vào đây
-        return TemplateResponse(request, 'admin/stats.html')
+        return TemplateResponse(request, 'admin/stats.html',{
+            'stats': dao.count_courses_by_cate()
+        })
 
 
 
