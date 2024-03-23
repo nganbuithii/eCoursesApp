@@ -1,8 +1,8 @@
 
 
 from rest_framework import viewsets, generics
-from courses import serializers
-from courses.models import Category
+from courses import serializers, paginators
+from courses.models import Category, Course
 
 
 # Create your views here.
@@ -12,3 +12,9 @@ from courses.models import Category
 class CategoryViewSet(viewsets.ViewSet, generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
+
+class CourseViewSet(viewsets.ViewSet, generics.ListAPIView):
+    # lấy các khóa học active
+    queryset = Course.objects.filter(active=True).all()
+    serializer_class = serializers.CourseSerializer
+    pagination_class = paginators.CoursePaginator
