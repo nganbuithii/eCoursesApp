@@ -18,3 +18,19 @@ class CourseViewSet(viewsets.ViewSet, generics.ListAPIView):
     queryset = Course.objects.filter(active=True).all()
     serializer_class = serializers.CourseSerializer
     pagination_class = paginators.CoursePaginator
+
+    def get_queryset(self):
+        queries = self.queryset
+
+        #chặn lại để tìm theo keywor /?q=..
+        q = self.request.query_params.get("q")
+        if q:
+            queries = queries.filter(name__icontains=q)
+
+        # Lọc theo category_id
+        category_id = self.request.query_params.get("category")
+        if category_id:
+            queries = queries.filter(category=category_id)
+
+        return queries
+
