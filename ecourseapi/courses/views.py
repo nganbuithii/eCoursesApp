@@ -1,6 +1,8 @@
 
-
+from rest_framework.decorators import action
 from rest_framework import viewsets, generics
+from rest_framework.response import Response
+
 from courses import serializers, paginators
 from courses.models import Category, Course
 
@@ -34,3 +36,13 @@ class CourseViewSet(viewsets.ViewSet, generics.ListAPIView):
 
         return queries
 
+    #Url: /courses/{course_id}/lessons/?q=
+    #Lấy danh sách bài học có ID là pk
+    #ếu trên dường dẫn không có {course_id} thì không cần tham số PK
+    @action(methods=['get'], detail=True)
+    def lessons(self, request, pk):
+        course = self.get_object()  # Lấy đối tượng course từ pk
+        lessons = course.lesson_set.filter(active=True).all()
+        serializer = serializers.LessonSerializer(lessons, many=True, context={'request':request})
+        
+        return Response(serializer.data)
