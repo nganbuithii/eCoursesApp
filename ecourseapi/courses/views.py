@@ -1,6 +1,6 @@
 
 from rest_framework.decorators import action
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, parsers, permissions
 from rest_framework.response import Response
 
 from courses import serializers, paginators
@@ -56,3 +56,14 @@ class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
 class UserViewSet(viewsets.ViewSet, generics.CreateAPIView ):
     queryset = User.objects.filter(is_active =True).all()
     serializer_class = serializers.UserSerializer
+    parser_classes = [parsers.MultiPartParser]
+
+    def get_permissions(self):
+        if self.action.__eq__('current_user'):
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
+
+    @action(methods=['get'], url_name='current_user', detail=False)
+    def current_user(selfs, request):
+        #tất cả thông tin chứng thực trong requesst.user
+        return Response(serializers.UserSerializer(request.user).data)
