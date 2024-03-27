@@ -4,7 +4,7 @@ from rest_framework import viewsets, generics
 from rest_framework.response import Response
 
 from courses import serializers, paginators
-from courses.models import Category, Course, Lesson
+from courses.models import Category, Course, Lesson, User
 
 
 # Create your views here.
@@ -51,3 +51,8 @@ class CourseViewSet(viewsets.ViewSet, generics.ListAPIView):
 class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
     queryset = Lesson.objects.filter(active = True).all()
     serializer_class = serializers.LessonSerializer
+
+#Đăng kí người dùng
+class UserViewSet(viewsets.ViewSet, generics.CreateAPIView ):
+    queryset = User.objects.filter(is_active =True).all()
+    serializer_class = serializers.UserSerializer

@@ -40,5 +40,25 @@ class LessonSerializer(BaseSerializer):
         fields = "__all__"
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields = ['first_name','last_name','username','password','email']
+        extra_kwargs = {
+            'password':{
+                'write_only': True
+                #bật cờ này lên thì sẽ không trả mật khẩu về cho user
+            }
+        }
+        
+    #băm mật khẩu
+    def create (self, validated_date):
+        data = validated_date.copy()
 
+            #** data: đồng nghĩa lấy hêết keys ở field ra
+        user = User(**data)
+        user.set_password(data['password'])
+        user.save()
+
+        return user
 
