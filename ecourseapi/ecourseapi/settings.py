@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'courses.User'
 
 import pymysql
+
 pymysql.install_as_MySQLdb()
 # Application definition
 
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rest_framework',
     'drf_yasg',
+    'oauth2_provider',
 ]
 CKEDITOR_UPLOAD_PATH = "ckeditors/images/"
 MIDDLEWARE = [
@@ -59,7 +61,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-#debug -toolbar
+# debug -toolbar
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
@@ -90,7 +92,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecourseapi.wsgi.application'
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -100,10 +106,9 @@ DATABASES = {
         'NAME': 'coursedb',
         'USER': 'root',
         'PASSWORD': 'Admin@123',
-        'HOST': '' # mặc định localhost
-        }
+        'HOST': ''  # mặc định localhost
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -123,7 +128,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -135,7 +139,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -145,3 +148,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CLIENT_ID ="Y07ZuyjkBwoFxMa72CiSi9BOKLHGc3VVnQ62K1Im"
+
+CLIENT_SECRET="edCPO2fN6Dn9PufTXL8fY2cx6UGkyY7hrkL0YV3uUKctmTOHlSjFztrjpgtYTmLj3Wcm9QYCylxZ4Whlu7DkwLUPaH41DO1tHosxsTTlJrNj68XG22ea5Ox6XYnIJlGN"
