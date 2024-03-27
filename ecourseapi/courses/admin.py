@@ -50,6 +50,10 @@ class Coursedmin(admin.ModelAdmin):
         }
 
 
+#custom Lesson
+class Lessonadmin(admin.ModelAdmin):
+    list_display = ['id', 'subject', 'active', 'created_date', 'updated_date']
+
 # Trang admin SITE
 class CourseAppAdminSite(admin.AdminSite):
     site_header = 'HỆ THỐNG KHÓA HỌC TRỰC TUYẾN'
@@ -69,6 +73,6 @@ admin_site = CourseAppAdminSite(name='myadmin')
 
 # trang quản trị
 admin_site.register(Category)
-admin_site.register(Lesson)
+admin_site.register(Lesson, Lessonadmin)
 admin_site.register(Tag)
 admin_site.register(Course, Coursedmin)

@@ -7,7 +7,7 @@ routers = routers.DefaultRouter()
 #tên trên đường dẫn
 routers.register('categories',views.CategoryViewSet, basename='categories')
 routers.register('courses', views.CourseViewSet, basename='courses')
-
+routers.register('lessons', views.LessonViewSet, basename='lessons')
 urlpatterns = [
     path('', include(routers.urls)),
 
