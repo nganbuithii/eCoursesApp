@@ -25,24 +25,27 @@ class CourseViewSet(viewsets.ViewSet, generics.ListAPIView):
         queries = self.queryset
 
         #chặn lại để tìm theo keywor /?q=..
-        q = self.request.query_params.get("q")
-        if q:
-            queries = queries.filter(name__icontains=q)
+        if self.action.__eq__('list'):
+            q = self.request.query_params.get("q")
+            if q:
+                queries = queries.filter(name__icontains=q)
 
-        # Lọc theo category_id
-        category_id = self.request.query_params.get("category")
-        if category_id:
-            queries = queries.filter(category=category_id)
+            # Lọc theo category_id
+            category_id = self.request.query_params.get("category")
+            if category_id:
+                queries = queries.filter(category=category_id)
 
         return queries
 
     #Url: /courses/{course_id}/lessons/?q=
     #Lấy danh sách bài học có ID là pk
     #ếu trên dường dẫn không có {course_id} thì không cần tham số PK
-    @action(methods=['get'], detail=True)
+    @action(methods=['get'], url_path='lessons', detail=True)
     def lessons(self, request, pk):
-        course = self.get_object()  # Lấy đối tượng course từ pk
-        lessons = course.lesson_set.filter(active=True).all()
+        lessons = self.get_object().lesson_set.filter(active=True)
+        q = request.query_params.get('q')
+        if q:
+            lessons = lessons.filter(subject__icontains=q)
         serializer = serializers.LessonSerializer(lessons, many=True, context={'request':request})
         
         return Response(serializer.data)
