@@ -3,7 +3,7 @@ from rest_framework import viewsets, generics, parsers, permissions, status
 from rest_framework.response import Response
 
 from courses import serializers, paginators, perms
-from courses.models import Category, Course, Lesson, User, Comment
+from courses.models import Category, Course, Lesson, User, Comment, Like
 
 
 # Create your views here.
@@ -58,7 +58,7 @@ class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
 
     #phải chứng thực mới vào đc
     def get_permissions(self):
-        if self.action in ['add_comment']:
+        if self.action in ['add_comment', 'like']:
            return [permissions.IsAuthenticated()]
         return self.permission_classes
 
@@ -69,6 +69,20 @@ class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
                                    lesson=self.get_object(),
                                    content= request.data.get('content'))
         return Response(serializers.CommentSerializer(c).data, status=status.HTTP_201_CREATED)
+
+    # Url: /lessons/{lesson_id}/like/
+    #có detail = True, thì có Pk
+    @action(methods=['post'], url_path="like", detail=True)
+    def like(self, request, pk):
+        # Lấy hoặc tạo một đối tượng Like
+        like, created = Like.objects.get_or_create(user=request.user, lesson=self.get_object())
+
+        # Nếu không phải lần đầu tiên thực hiện like, thì cập nhật trạng thái ngược lại
+        if not created:
+            like.active = not like.active
+            like.save()
+        return Response(status=status.HTTP_200_OK)
+
 
 
 # Đăng kí người dùng
