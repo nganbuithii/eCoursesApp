@@ -2,7 +2,7 @@ from rest_framework.decorators import action
 from rest_framework import viewsets, generics, parsers, permissions, status
 from rest_framework.response import Response
 
-from courses import serializers, paginators
+from courses import serializers, paginators, perms
 from courses.models import Category, Course, Lesson, User, Comment
 
 
@@ -86,3 +86,9 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView):
     def current_user(selfs, request):
         # tất cả thông tin chứng thực trong requesst.user
         return Response(serializers.UserSerializer(request.user).data)
+
+
+class CommentViewSet(viewsets.ViewSet,generics.DestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = serializers.CommentSerializer
+    permission_classes = [perms.OwnerAuthenticated]
