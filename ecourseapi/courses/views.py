@@ -88,7 +88,9 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView):
         return Response(serializers.UserSerializer(request.user).data)
 
 
-class CommentViewSet(viewsets.ViewSet,generics.DestroyAPIView):
+class CommentViewSet(viewsets.ViewSet,generics.DestroyAPIView, generics.UpdateAPIView):
+    #Xoas comment => DestroyAPI
+    #cập nhật comments => Update => PUT, PATCH
     queryset = Comment.objects.all()
     serializer_class = serializers.CommentSerializer
     permission_classes = [perms.OwnerAuthenticated]
