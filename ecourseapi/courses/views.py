@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from courses import serializers, paginators, perms
 from courses.models import Category, Course, Lesson, User, Comment, Like
 
-
 # Create your views here.
 
 # Tạo serializer đầu tiên
@@ -53,7 +52,7 @@ class CourseViewSet(viewsets.ViewSet, generics.ListAPIView):
 
 class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
     queryset = Lesson.objects.filter(active=True).all()
-    serializer_class = serializers.LessonSerializer
+    serializer_class = serializers.LessonDetailSerializer
     permission_classes = [permissions.AllowAny]# cho ai cũng có quền xem
 
     #phải chứng thực mới vào đc
@@ -81,7 +80,11 @@ class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
         if not created:
             like.active = not like.active
             like.save()
-        return Response(status=status.HTTP_200_OK)
+
+        #trả ra bài học đã like
+        return Response(serializers.LessonDetailSerializer(self.get_object(), context={'request':request}).data, status=status.HTTP_200_OK)
+
+
 
 
 
