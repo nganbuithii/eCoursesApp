@@ -36,22 +36,21 @@ class LessonSerializer(BaseSerializer):
         model = Lesson
         fields = "__all__"
 
+
 #
 class LessonDetailSerializer(LessonSerializer):
     liked = serializers.SerializerMethodField()
 
     class Meta:
         model = Lesson
-        fields = list(LessonSerializer.Meta.fields) + ['liked']
+        fields = '__all__'  # Hoặc chỉ định các trường mà bạn muốn bao gồm, trừ liked
 
     def get_liked(self, lesson):
         request = self.context.get("request")
-        # Kiểm tra xem người dùng đã xác thực hay chưa
         if request and request.user.is_authenticated:
-            # Trả về True nếu người dùng đã thích bài học, ngược lại trả về False
             return lesson.like_set.filter(user=request.user, active=True).exists()
-        # Trường hợp không xác thực hoặc không có request, trả về False
         return False
+
 
 
 class UserSerializer(serializers.ModelSerializer):
