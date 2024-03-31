@@ -5,10 +5,11 @@ import Styles from "./Styles"
 
 const Home = () => {
     return (
+        
         <View style={MyStyles.container}>
             <Text style={Styles.subjects}>HOME - Trang chủ</Text>
         </View>
     )
-    }
+}
 
 export default Home
