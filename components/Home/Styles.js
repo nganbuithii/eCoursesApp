@@ -5,5 +5,9 @@ export default StyleSheet.create({
         fontSize:30,
         color:"red",
         fontWeight:"500"
+    },
+    txt:{
+        color: "red",
+        fontWeight:"400"
     }
 })
