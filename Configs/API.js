@@ -6,7 +6,8 @@ const HOST = 'https://thanhduong.pythonanywhere.com'
 export const endpoints = {
     'categories':'/categories/',
     'courses':'/courses/',
-    'lessons':(courseId) => `/courses/${courseId}/lessons/`
+    'lessons':(courseId) => `/courses/${courseId}/lessons/`,
+    'lesson-details': (lessonId) => `/lessons/${lessonId}`
 }
 
 // các api cần chứng thực

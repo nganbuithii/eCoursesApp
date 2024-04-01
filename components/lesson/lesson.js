@@ -3,7 +3,7 @@ import MyStyles from "../../Styles/MyStyles";
 import react, { useEffect, useState } from "react";
 import API, { endpoints } from "../../Configs/API"
 
-const Lesson = ({route}) => {
+const Lesson = ({route, navigation}) => {
     // NẠP API
     // b1: Gắn đối số route
     // b2 khai 
@@ -24,6 +24,10 @@ const Lesson = ({route}) => {
         loadLesson();
     },[courseId])
 
+    const goToDetails = (lessonId) => {
+        navigation.navigate("LessonDetail", {"lessonId": lessonId})
+    }
+
     return (
         <View style={MyStyles.container}>
             <Text style={MyStyles.subject}>
@@ -37,7 +41,7 @@ const Lesson = ({route}) => {
                 ) : (
                 <>
                     {lessons.map(lesson => (
-                    <TouchableOpacity onPress={() => goToLesson(lesson.id)} key={lesson.id} style={{flex:3}}>
+                    <TouchableOpacity onPress={() => goToDetails(lesson.id)} key={lesson.id} style={{flex:3}}>
                         <View>
                             {lesson.Image ? (
                                 <Image source={{uri: lesson.Image}} style={{width: 100, height: 100}} />

@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import API, { endpoints } from './Configs/API';
 import { ActivityIndicator } from 'react-native';
 import Lesson from './components/lesson/lesson';
+import LessonDetail from './components/lesson/lessonDetail';
 
 const Drawer = createDrawerNavigator();
 
@@ -20,7 +21,10 @@ const App = () => {
         {/* Nạp API Danh mục DrawerContent*/}
         <Drawer.Screen name="Home" component={Home} options={{title:"Khóa học"}}/>
         <Drawer.Screen name='Login' component={Login} />
-        <Drawer.Screen name='Lesson' component={Lesson} options={{title:"Bài học"}} />
+        <Drawer.Screen name='Lesson' component={Lesson} options={{title:"Bài học", drawerItemStyle:{display:"none"}}} />
+        {/* ẩn bài học trên thanh nav đi vì khóa học mới vô được bài học, để bài học hiển thi như vậy biết bài học đó thuộc khóa học nào */}
+
+        <Drawer.Screen name='LessonDetail' component={LessonDetail} options={{drawerItemStyle:{display:"none"}}} />
       </Drawer.Navigator>
     </NavigationContainer>
   )
