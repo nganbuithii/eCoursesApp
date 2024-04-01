@@ -18,9 +18,9 @@ const App = () => {
       <Drawer.Navigator drawerContent={MyDrawerItem}>
         {/* gắn màn hình */}
         {/* Nạp API Danh mục DrawerContent*/}
-        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="Home" component={Home} options={{title:"Khóa học"}}/>
         <Drawer.Screen name='Login' component={Login} />
-        <Drawer.Screen name='Lesson' component={Lesson} />
+        <Drawer.Screen name='Lesson' component={Lesson} options={{title:"Bài học"}} />
       </Drawer.Navigator>
     </NavigationContainer>
   )
