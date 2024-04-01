@@ -42,14 +42,14 @@ const Lesson = ({route, navigation}) => {
                 <>
                     {lessons.map(lesson => (
                     <TouchableOpacity onPress={() => goToDetails(lesson.id)} key={lesson.id} style={{flex:3}}>
-                        <View>
-                            {lesson.Image ? (
-                                <Image source={{uri: lesson.Image}} style={{width: 100, height: 100}} />
-                            ) : (
-                                <Text>Không có hình ảnh</Text>
-                            )}
+                        <View style={[MyStyles.row, {backgroundColor:"yellow"}]}>
+                            <Image source={{uri: lesson.image}} style={{width: 100, height: 100}} />
+                            <View style={MyStyles.row}>
+                                <Text>{lesson.subject}</Text>
+                            </View>
                         </View>
-                        <Text>{lesson.subject}</Text>
+                    
+                        
                     </TouchableOpacity>
                     ))}
                 </>

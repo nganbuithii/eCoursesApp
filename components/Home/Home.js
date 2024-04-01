@@ -45,16 +45,15 @@ const Home = ({route, navigation}) => {
                 ) : (
                 <>
                     {courses.map(course => (
-                    <TouchableOpacity onPress={() => goToLesson(course.id)} key={course.id} style={{flex:3}}>
-                        <View>
-                            {course.Image ? (
-                                <Image source={{uri: course.Image}} style={{width: 100, height: 100}} />
-                            ) : (
-                                <Text>Không có hình ảnh</Text>
-                            )}
+                    <TouchableOpacity onPress={() => goToLesson(course.id)} key={course.id} style={{flex:1}}>
+                        <View style={[MyStyles.row]}>
+                            <Image source={{uri: course.image}} style={MyStyles.img} />
+                            <View style={MyStyles.row}>
+                                <Text style={{marginLeft: 10}}>{course.subject}</Text>
+                            </View>
                         </View>
-                        <Text>{course.subject}</Text>
-                    </TouchableOpacity>
+                
+                </TouchableOpacity>
                     ))}
                 </>
                 )}
