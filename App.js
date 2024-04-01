@@ -24,7 +24,7 @@ const App = () => {
         <Drawer.Screen name='Lesson' component={Lesson} options={{title:"Bài học", drawerItemStyle:{display:"none"}}} />
         {/* ẩn bài học trên thanh nav đi vì khóa học mới vô được bài học, để bài học hiển thi như vậy biết bài học đó thuộc khóa học nào */}
 
-        <Drawer.Screen name='LessonDetail' component={LessonDetail} options={{drawerItemStyle:{display:"none"}}} />
+        <Drawer.Screen name='LessonDetail' component={LessonDetail} options={{title:"Chi tiết bài học",drawerItemStyle:{display:"none"}}} />
       </Drawer.Navigator>
     </NavigationContainer>
   )

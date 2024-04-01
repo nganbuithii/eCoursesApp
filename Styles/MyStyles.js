@@ -7,7 +7,12 @@ export default StyleSheet.create({
         alignItems:"center"
     },
     subject:{
-        color:"pink",
-        fontWeight:"600"
+        color:"green",
+        fontWeight:"600",
+        fontSize:20,
+        padding:20
+    },
+    row:{
+        flexDirection:"row"
     }
 })
