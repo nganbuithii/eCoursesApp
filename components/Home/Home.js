@@ -4,15 +4,19 @@ import Styles from "./Styles"
 import React, { useEffect, useState } from "react"
 import API, { endpoints } from "../../Configs/API"
 
-const Home = () => {
+const Home = ({route}) => {
     const [courses, setCourses] = React.useState(null);
+    const cateId = route.params?.cateId;
     
     // Fetch API
     React.useEffect(() => {
         const loadCourses = async() =>{
+            let url = endpoints['courses']
+            if (cateId !== undefined && cateId != null)
+                url = `${url}?category_id=${cateId}`
             try {
                 
-                let res = await API.get(endpoints['courses']);
+                let res = await API.get(url);
                 //console.log(res.data.results)
                 setCourses(res.data.results);
             } catch(ex) {
@@ -21,7 +25,8 @@ const Home = () => {
         }
 
         loadCourses();
-    }, []);
+        // Nếu CateId thay đổi thì sẽ fetch lại dữ liệu
+    }, [cateId]);
 
     return (
         <View style={MyStyles.container}>
