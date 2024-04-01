@@ -5,5 +5,9 @@ export default StyleSheet.create({
         flex:1,
         justifyContent:"center",
         alignItems:"center"
+    },
+    subject:{
+        color:"pink",
+        fontWeight:"600"
     }
 })

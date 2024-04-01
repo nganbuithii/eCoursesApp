@@ -4,7 +4,7 @@ import Styles from "./Styles"
 import React, { useEffect, useState } from "react"
 import API, { endpoints } from "../../Configs/API"
 
-const Home = ({route}) => {
+const Home = ({route, navigation}) => {
     const [courses, setCourses] = React.useState(null);
     const cateId = route.params?.cateId;
     
@@ -28,6 +28,12 @@ const Home = ({route}) => {
         // Nếu CateId thay đổi thì sẽ fetch lại dữ liệu
     }, [cateId]);
 
+
+    // Xử lí chuyển trang
+    const goToLesson = (courseId) => {
+        navigation.navigate("Lesson", {"courseId":courseId})
+    }
+
     return (
         <View style={MyStyles.container}>
             <Text style={Styles.subjects}>HOME - Trang chủ</Text>
@@ -39,7 +45,7 @@ const Home = ({route}) => {
                 ) : (
                 <>
                     {courses.map(course => (
-                    <TouchableOpacity key={course.id} style={{flex:3}}>
+                    <TouchableOpacity onPress={() => goToLesson(course.id)} key={course.id} style={{flex:3}}>
                         <View>
                             {course.Image ? (
                                 <Image source={{uri: course.Image}} style={{width: 100, height: 100}} />

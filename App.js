@@ -7,6 +7,7 @@ import Login from './components/User/Login';
 import { useEffect, useState } from 'react';
 import API, { endpoints } from './Configs/API';
 import { ActivityIndicator } from 'react-native';
+import Lesson from './components/lesson/lesson';
 
 const Drawer = createDrawerNavigator();
 
@@ -19,6 +20,7 @@ const App = () => {
         {/* Nạp API Danh mục DrawerContent*/}
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name='Login' component={Login} />
+        <Drawer.Screen name='Lesson' component={Lesson} />
       </Drawer.Navigator>
     </NavigationContainer>
   )
