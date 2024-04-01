@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from "react-native"
+import { View, Text, ActivityIndicator, ScrollView, TouchableOpacity, Image } from "react-native"
 import MyStyles from "../../Styles/MyStyles"
 import Styles from "./Styles"
 import React, { useEffect, useState } from "react"
@@ -28,17 +28,26 @@ const Home = () => {
             <Text style={Styles.subjects}>HOME - Trang chủ</Text>
 
             {/* Sử dụng ActivityIndicator khi đang tải dữ liệu */}
-            {courses === null ? (
-            <ActivityIndicator />
-            ) : (
-            <>
-                {courses.map(course => (
-                <View key={course.id}>
-                    <Text>{course.subject}</Text>
-                </View>
-                ))}
-            </>
-            )}
+            <ScrollView style={{flex:1, flexDirection:"row", backgroundColor:"pink"}}>
+                {courses === null ? (
+                <ActivityIndicator />
+                ) : (
+                <>
+                    {courses.map(course => (
+                    <TouchableOpacity key={course.id} style={{flex:3}}>
+                        <View>
+                            {course.Image ? (
+                                <Image source={{uri: course.Image}} style={{width: 100, height: 100}} />
+                            ) : (
+                                <Text>Không có hình ảnh</Text>
+                            )}
+                        </View>
+                        <Text>{course.subject}</Text>
+                    </TouchableOpacity>
+                    ))}
+                </>
+                )}
+            </ScrollView>
         </View>
     );
 }
