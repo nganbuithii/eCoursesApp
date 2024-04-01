@@ -1,8 +1,10 @@
-import { View, Text, ActivityIndicator, Image } from "react-native"
+import { View, Text, ActivityIndicator, Image, ScrollView } from "react-native"
 import MyStyles from "../../Styles/MyStyles"
 import React, { useEffect } from "react";
 import API, { endpoints } from "../../Configs/API";
 import Style from "./Style";
+import RenderHTML from 'react-native-render-html';
+
 
 const LessonDetail = ({route}) => {
     const {lessonId} = route.params;
@@ -21,7 +23,8 @@ const LessonDetail = ({route}) => {
     },[lessonId])
 
     return (
-        <View style={MyStyles.container}>
+        <ScrollView>
+             <View style={MyStyles.container}>
             <Text style={MyStyles.subject}>CHI TIẾT BÀI HỌC</Text>
 
             {/* kiểm tra */}
@@ -30,12 +33,23 @@ const LessonDetail = ({route}) => {
                 Mặc định trên điện thoại là dọc => gắn style row */}
                 <View style={MyStyles.row}>
                     <Image style={Style.img}source={{uri: lesson.image}}/>
-                    <View style={MyStyles.row}>
+                    <View >
                         <Text style={MyStyles.subject}>{lesson.subject}</Text>
+                        <View style={MyStyles.row}>
+                            {lesson.tags.map(t => <Text style={Style.tag}>{t.name}</Text>)}
+                        </View>
+                    
+                        
                     </View>
+                </View>
+                <View>
+                    <RenderHTML source={{html: lesson.content}}/>
+                    
                 </View>
             </>}
         </View>
+        </ScrollView>
+    
     )
 }
 
