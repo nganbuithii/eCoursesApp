@@ -13,5 +13,34 @@ export default StyleSheet.create({
         padding:5,
         margin:5,
         borderRadius:10
-    }
+    },
+    thumb:{
+        height:40,
+        width:40,
+        borderRadius:10
+    },
+    commentContainer: {
+        flexDirection: 'column',
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+    },
+    commentHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    commentUsername: {
+        marginLeft: 10,
+        fontWeight: 'bold',
+    },
+    commentDate: {
+        marginLeft: 'auto',
+        color: '#999',
+    },
+    commentContent: {
+        marginTop: 5,
+    },
+    commentText: {
+        fontSize: 16,
+    },
 })
