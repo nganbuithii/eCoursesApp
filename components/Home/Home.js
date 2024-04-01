@@ -3,6 +3,7 @@ import MyStyles from "../../Styles/MyStyles"
 import Styles from "./Styles"
 import React, { useEffect, useState } from "react"
 import API, { endpoints } from "../../Configs/API"
+import moment from 'moment';
 
 const Home = ({route, navigation}) => {
     const [courses, setCourses] = React.useState(null);
@@ -48,8 +49,13 @@ const Home = ({route, navigation}) => {
                     <TouchableOpacity onPress={() => goToLesson(course.id)} key={course.id} style={{flex:1}}>
                         <View style={[MyStyles.row]}>
                             <Image source={{uri: course.image}} style={MyStyles.img} />
-                            <View style={MyStyles.row}>
+
+
+                            <View >
                                 <Text style={{marginLeft: 10}}>{course.subject}</Text>
+
+                                <Text>Ngày tạo: {moment(course.create_date).format('DD/MM/YYYY')}</Text>
+
                             </View>
                         </View>
                 
